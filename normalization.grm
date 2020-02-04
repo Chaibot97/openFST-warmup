@@ -1,0 +1,46 @@
+# import the example grammers (from the package installed)
+import 'byte.grm' as bytelib;
+import 'numbers.grm' as numbers;
+
+#import the grammers created by me
+import 'dates.grm' as dates;
+
+# accepter for any words
+anyword = bytelib.kNotSpace+;
+
+# transducer for numbers
+number = numbers.NUMBERS; # digits to text
+r_number = Invert[number]; #text to digits
+
+# accepter for date
+date = dates.DATES; 
+
+# labels
+label_num_l = "": "<NUM>";
+label_num_r = "": "</NUM>";
+label_unit_l = "": "<UNIT>";
+label_unit_r = "": "</UNIT>";
+label_Date_l = "": "<DATE>";
+label_Date_r = "": "</DATE>";
+
+# reduce one or more spaces to one spaces
+reduce_spaces = bytelib.kSpace+ : " ";
+# delete all the spaces
+delspace = bytelib.kSpace* : "";
+
+# define a word (disfavor anyword)
+word = (anyword <1.5>) | 
+		(label_num_l r_number label_num_r
+		reduce_spaces label_unit_l anyword label_unit_r)
+		| (label_Date_l date label_Date_r <-1.5>);
+
+period = "." | "";
+
+# define a sentence
+sentence = delspace
+			word
+           (reduce_spaces word)*
+           period delspace;
+
+
+export TOKENIZER = Optimize[sentence];

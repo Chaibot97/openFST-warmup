@@ -1,0 +1,22 @@
+import 'byte.grm' as bytelib;
+import 'numbers.grm' as numbers;
+
+reduce_spaces = bytelib.kSpace+ : " ";
+
+# transducer for numbers
+number = numbers.NUMBERS; # digits to text
+r_number = Invert[number]; #text to digits
+
+a = "a" : "1";
+the = "the" : "1";
+an = "an" : "1";
+articles = a | the | an;
+
+digits = bytelib.kDigit*;
+
+modifier = (articles | r_number | digits ) reduce_spaces ("day" | "days") reduce_spaces ("before" | "after");
+
+relavent_dates = (modifier reduce_spaces| "")  ("tomorrow" | "today" | "yesterday");
+
+
+export DATES = Optimize[relavent_dates];

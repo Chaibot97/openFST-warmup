@@ -1,0 +1,5 @@
+Input string: Output string: I want to borrow <NUM>300</NUM> <UNIT>dollars</UNIT> and will repay by <DATE>tomorrow</DATE>.
+Input string: Output string: I want to buy <NUM>4</NUM> <UNIT>gallens</UNIT> of water <DATE>today</DATE>.
+Input string: Output string: I have run <NUM>1</NUM> <UNIT>mile</UNIT> <DATE>1 day before yesterday</DATE>.
+Input string: Output string: I will eat <NUM>5</NUM> <UNIT>times</UNIT> <DATE>3 days after today</DATE>.
+Input string: 
